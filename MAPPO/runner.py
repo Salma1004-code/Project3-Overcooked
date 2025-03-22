@@ -269,6 +269,27 @@ class MPERunner(Runner):
             if episode % self.eval_interval == 0 and self.use_eval:
                 self.eval(total_num_steps)
 
+    
+    def save_infos_to_csv(self, infos, filename="infos_log.csv"):
+        """Save environment info dictionary to a CSV file."""
+        file_exists = os.path.isfile(filename)
+        
+        # Extract keys dynamically (assuming all dictionaries have the same structure)
+        if infos and isinstance(infos[0], dict):
+            keys = infos[0].keys()
+            
+            with open(filename, mode='a', newline='') as file:
+                writer = csv.DictWriter(file, fieldnames=keys)
+                
+                # Write header only if file does not exist
+                if not file_exists:
+                    writer.writeheader()
+                
+                # Write each info dictionary
+                for info in infos:
+                    writer.writerow(info)
+
+    
     def warmup(self):
         # reset env
         obs = self.envs.reset()
