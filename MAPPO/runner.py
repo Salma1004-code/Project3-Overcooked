@@ -3,11 +3,13 @@ import numpy as np
 import time
 import imageio
 import torch
+import csv
 from pathlib import Path
 from tensorboardX import SummaryWriter
 from .Buffer import SharedReplayBuffer
 from .mappo import R_MAPPO as TrainAlgo
 from .mappo import R_MAPPOPolicy as Policy
+
 
 def _t2n(x):
     """Convert torch tensor to a numpy array."""
@@ -211,7 +213,7 @@ class MPERunner(Runner):
                 
                 # Obser reward and next obs
                 obs, rewards, dones, infos = self.envs.step(actions_env)
-                self.save_infos_to_csv(infos, filename="infos_log.csv")
+                self.save_infos_to_csv(infos)
 
                 #print(self.envs.base_env)
       
