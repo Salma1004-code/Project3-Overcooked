@@ -213,6 +213,7 @@ class MPERunner(Runner):
                 
                 # Obser reward and next obs
                 obs, rewards, dones, infos = self.envs.step(actions_env)
+                print("End-of-step info dump:\n", infos)
                 self.save_infos_to_csv(infos)
 
                 #print(self.envs.base_env)
