@@ -161,7 +161,7 @@ def get_config():
     parser.add_argument("--scenario_name", type=str, default="Overcooked", help="Name of the scenario")
     # prepare parameters
     parser.add_argument("--layout", type=int, default=2, help="layout option")
-    parser.add_argument("--show", type=int, default=1, help="render or not")
+    parser.add_argument("--show", type=int, default=0, help="render or not")
     parser.add_argument("--train", type=int, default=1, help="train or not")
     parser.add_argument("--greedy", type=float, default=0.1, help="epsilon-greedy")
     
