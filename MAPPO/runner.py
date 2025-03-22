@@ -274,22 +274,29 @@ class MPERunner(Runner):
     
     def save_infos_to_csv(self, infos, filename="infos_log.csv"):
         """Save environment info dictionary to a CSV file."""
+        if not infos:  # Check if infos is None or empty
+            print("WARNING: infos is empty. Skipping CSV logging.")
+            return  
+    
         file_exists = os.path.isfile(filename)
-        
-        # Extract keys dynamically (assuming all dictionaries have the same structure)
-        if infos and isinstance(infos[0], dict):
-            keys = infos[0].keys()
-            
+    
+        # Handle different structures of `infos`
+        if isinstance(infos, dict):  # If `infos` is a single dictionary
+            infos = [infos]  # Convert to a list for consistent processing
+    
+        if isinstance(infos, list) and isinstance(infos[0], dict):  
+            keys = infos[0].keys()  # Extract column names
+    
             with open(filename, mode='a', newline='') as file:
                 writer = csv.DictWriter(file, fieldnames=keys)
                 
-                # Write header only if file does not exist
                 if not file_exists:
-                    writer.writeheader()
+                    writer.writeheader()  # Write CSV header only once
                 
-                # Write each info dictionary
                 for info in infos:
                     writer.writerow(info)
+        else:
+            print(f"ERROR: Unexpected infos format: {type(infos)}, value: {infos}")
 
     
     def warmup(self):
