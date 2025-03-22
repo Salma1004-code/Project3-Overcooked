@@ -211,7 +211,9 @@ class MPERunner(Runner):
                 
                 # Obser reward and next obs
                 obs, rewards, dones, infos = self.envs.step(actions_env)
-                print(self.envs.base_env)
+                self.save_infos_to_csv(infos, filename="infos_log.csv")
+
+                #print(self.envs.base_env)
       
                 data = obs, rewards, dones, infos, values.reshape([1,1,2,1]), \
                     actions.reshape([1,1,2,1]), \
