@@ -34,8 +34,11 @@ class SharedReplayBuffer(object):
         self._use_valuenorm = args.use_valuenorm
         self._use_proper_time_limits = args.use_proper_time_limits
 
-        obs_shape = get_shape_from_obs_space(obs_space)
-        share_obs_shape = get_shape_from_obs_space(cent_obs_space)
+        #obs_shape = get_shape_from_obs_space(obs_space)
+        #share_obs_shape = get_shape_from_obs_space(cent_obs_space)
+
+        obs_shape = (96,)  # Set the correct observation shape manually
+        share_obs_shape = (96,)  # Set the centralized observation shape manually
 
         if type(obs_shape[-1]) == list:
             obs_shape = obs_shape[:1]
